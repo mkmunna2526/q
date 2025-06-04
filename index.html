@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAM - Premium Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+            top: -50%;
+            left: -50%;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .balance {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            margin: 10px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .balance-amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .content {
+            padding: 20px;
+            min-height: 400px;
+        }
+
+        .product {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-icon {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .product-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #ffd700;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-limit {
+            font-size: 0.8em;
+            color: #ffcccb;
+            margin-bottom: 10px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .task {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .task-info {
+            flex-grow: 1;
+        }
+
+        .task-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .task-reward {
+            color: #ffd700;
+            font-size: 0.9em;
+        }
+
+        .task-btn {
+            background: #4ecdc4;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .task-btn:hover {
+            background: #45b7b8;
+            transform: scale(1.05);
+        }
+
+        .task-btn.completed {
+            background: #27ae60;
+            cursor: default;
+        }
+
+        .referral-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .referral-link {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 0.9em;
+        }
+
+        .copy-btn {
+            background: #4ecdc4;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .telegram-link {
+            display: block;
+            text-align: center;
+            background: #0088cc;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-link:hover {
+            background: #006699;
+            transform: scale(1.02);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo floating-animation">🏪 ZAM</div>
+            <p>Premium Digital Products</p>
+        </div>
+
+        <div class="balance">
+            <div>Balance</div>
+            <div class="balance-amount" id="balance">0 Points</div>
+        </div>
+
+        <div class="nav">
+            <button class="nav-btn active" onclick="showSection('products')">Products</button>
+            <button class="nav-btn" onclick="showSection('account')">Account</button>
+        </div>
+
+        <div class="content">
+            <!-- Products Section -->
+            <div id="products-section">
+                <div class="product">
+                    <div class="product-icon">🧢</div>
+                    <div class="product-name">Premium Cap</div>
+                    <div class="product-price">0.05 TON</div>
+                    <div class="product-limit">Limited: 1000 available</div>
+                    <a href="https://app.tonkeeper.com/transfer/UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl?amount=0.05&text=Premium%20Cap" class="buy-btn" target="_blank">Buy with TON</a>
+                </div>
+
+                <div class="product">
+                    <div class="product-icon">👕</div>
+                    <div class="product-name">Designer T-Shirt</div>
+                    <div class="product-price">0.08 TON</div>
+                    <div class="product-limit">Limited: 500 available</div>
+                    <a href="https://app.tonkeeper.com/transfer/UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl?amount=0.08&text=Designer%20T-Shirt" class="buy-btn" target="_blank">Buy with TON</a>
+                </div>
+
+                <div class="product">
+                    <div class="product-icon">👟</div>
+                    <div class="product-name">Sport Shoes</div>
+                    <div class="product-price">0.15 TON</div>
+                    <div class="product-limit">Limited: 300 available</div>
+                    <a href="https://app.tonkeeper.com/transfer/UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl?amount=0.15&text=Sport%20Shoes" class="buy-btn" target="_blank">Buy with TON</a>
+                </div>
+
+                <div class="product">
+                    <div class="product-icon">🎒</div>
+                    <div class="product-name">Premium Backpack</div>
+                    <div class="product-price">0.12 TON</div>
+                    <div class="product-limit">Limited: 750 available</div>
+                    <a href="https://app.tonkeeper.com/transfer/UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl?amount=0.12&text=Premium%20Backpack" class="buy-btn" target="_blank">Buy with TON</a>
+                </div>
+
+                <div class="product">
+                    <div class="product-icon">📱</div>
+                    <div class="product-name">Phone Case</div>
+                    <div class="product-price">0.03 TON</div>
+                    <div class="product-limit">Limited: 2000 available</div>
+                    <a href="https://app.tonkeeper.com/transfer/UQCC9TTHlJZLNH09baIi3UONk69UR-8YbedySf7F9sF-UJJl?amount=0.03&text=Phone%20Case" class="buy-btn" target="_blank">Buy with TON</a>
+                </div>
+
+                <a href="https://t.me/mtvip999" class="telegram-link" target="_blank">
+                    📢 Join Our Telegram Channel
+                </a>
+            </div>
+
+            <!-- Account Section -->
+            <div id="account-section" class="hidden">
+                <div class="stats">
+                    <div class="stat">
+                        <div>Total Earned</div>
+                        <div id="total-earned">0</div>
+                    </div>
+                    <div class="stat">
+                        <div>Referrals</div>
+                        <div id="referral-count">0</div>
+                    </div>
+                </div>
+
+                <div class="referral-section">
+                    <h3>Referral System</h3>
+                    <p>Earn 1 point for each referral (50 referrals needed)</p>
+                    <div class="referral-link" id="referral-link">
+                        https://zam-bot.com/ref?id=USER123
+                    </div>
+                    <button class="copy-btn" onclick="copyReferralLink()">Copy Link</button>
+                </div>
+
+                <h3 style="margin-bottom: 15px;">Available Tasks</h3>
+                
+                <div class="task">
+                    <div class="task-info">
+                        <div class="task-title">Follow Telegram Channel</div>
+                        <div class="task-reward">+10 Points</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask(this, 10, 'https://t.me/mtvip999')">Open</button>
+                </div>
+
+                <div class="task">
+                    <div class="task-info">
+                        <div class="task-title">Subscribe YouTube Channel</div>
+                        <div class="task-reward">+15 Points</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask(this, 15, 'https://youtube.com')">Open</button>
+                </div>
+
+                <div class="task">
+                    <div class="task-info">
+                        <div class="task-title">Join Telegram Bot</div>
+                        <div class="task-reward">+5 Points</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask(this, 5, 'https://t.me/your_bot')">Open</button>
+                </div>
+
+                <div class="task">
+                    <div class="task-info">
+                        <div class="task-title">Share with Friends</div>
+                        <div class="task-reward">+20 Points</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask(this, 20, '')">Open</button>
+                </div>
+
+                <div class="task">
+                    <div class="task-info">
+                        <div class="task-title">Daily Check-in</div>
+                        <div class="task-reward">+5 Points</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask(this, 5, '')">Open</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userBalance = parseInt(localStorage.getItem('userBalance') || '0');
+        let totalEarned = parseInt(localStorage.getItem('totalEarned') || '0');
+        let referralCount = parseInt(localStorage.getItem('referralCount') || '0');
+        let completedTasks = JSON.parse(localStorage.getItem('completedTasks') || '[]');
+
+        function updateBalance() {
+            document.getElementById('balance').textContent = userBalance + ' Points';
+            document.getElementById('total-earned').textContent = totalEarned;
+            document.getElementById('referral-count').textContent = referralCount;
+            localStorage.setItem('userBalance', userBalance.toString());
+            localStorage.setItem('totalEarned', totalEarned.toString());
+            localStorage.setItem('referralCount', referralCount.toString());
+        }
+
+        function showSection(section) {
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Hide all sections
+            document.getElementById('products-section').classList.add('hidden');
+            document.getElementById('account-section').classList.add('hidden');
+            
+            // Show selected section
+            document.getElementById(section + '-section').classList.remove('hidden');
+        }
+
+        function completeTask(button, points, link) {
+            const taskTitle = button.parentElement.querySelector('.task-title').textContent;
+            
+            if (completedTasks.includes(taskTitle)) {
+                return;
+            }
+
+            if (link) {
+                window.open(link, '_blank');
+            }
+
+            // Add delay for task completion
+            setTimeout(() => {
+                userBalance += points;
+                totalEarned += points;
+                completedTasks.push(taskTitle);
+                
+                button.textContent = 'Completed';
+                button.classList.add('completed');
+                button.disabled = true;
+                
+                localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+                updateBalance();
+                
+                // Show success animation
+                button.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            }, 2000);
+        }
+
+        function copyReferralLink() {
+            const referralLink = document.getElementById('referral-link').textContent;
+            navigator.clipboard.writeText(referralLink).then(() => {
+                const copyBtn = event.target;
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Check for referral on page load
+        function checkReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refId = urlParams.get('ref');
+            
+            if (refId && !localStorage.getItem('referralUsed')) {
+                referralCount += 1;
+                userBalance += 1;
+                totalEarned += 1;
+                localStorage.setItem('referralUsed', 'true');
+                updateBalance();
+            }
+        }
+
+        // Initialize completed tasks on page load
+        function initializeTasks() {
+            const tasks = document.querySelectorAll('.task-btn');
+            tasks.forEach(button => {
+                const taskTitle = button.parentElement.querySelector('.task-title').textContent;
+                if (completedTasks.includes(taskTitle)) {
+                    button.textContent = 'Completed';
+                    button.classList.add('completed');
+                    button.disabled = true;
+                }
+            });
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateBalance();
+            checkReferral();
+            initializeTasks();
+        });
+
+        // Add some interactive animations
+        document.querySelectorAll('.product').forEach(product => {
+            product.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            product.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
